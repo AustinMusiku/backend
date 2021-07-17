@@ -38,8 +38,10 @@ module.exports.signIn = async (req, res) => {
         else{
             bcrypt.compare(password, user.password, (err, result) => {
                 if(result){
+                    console.log(`${user.username} logged in`);
                     res.json({ msg: 'logged in' });
                 }else{
+                    console.log(`${user.username} unsuccessful logged in`);
                     res.json({ msg: 'invalid login credentials' });
                 }
             });
