@@ -33,7 +33,7 @@ module.exports.signIn = async (req, res) => {
             res.json({ msg: 'error occurred' });
         }
         else if(!user){
-            res.json({ msg: 'invalid login credentials' });
+            res.json({ msg: 'no user' });
         }
         else{
             bcrypt.compare(password, user.password, (err, result) => {
