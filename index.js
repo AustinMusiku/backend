@@ -53,9 +53,11 @@ app.use(cors());
 
 const authRoutes = require('./routes/authenticationRoutes');
 const userRoutes = require('./routes/userRoutes');
+// const resourceRoutes = require('./routes/resourceRoutes');
 
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+// app.use('/', resourceRoutes);
 
 app.get('/', (req, res) => {
     res.json({ msg: 'welcome to api' });

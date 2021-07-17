@@ -4,3 +4,9 @@
 # node modules
 node_modules/
 
+# files
+resourceRoutes.js
+resourceControllers.js
+
+# folders
+views/ 
