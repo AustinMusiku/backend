@@ -26,7 +26,7 @@ mongoose.connect(uri, {
 
 // session store
 const store = new mongoDbSession({
-        uri: process.env.MONGO_URI,
+        uri: `${process.env.MONGO_URI}`,
         collection: 'sessions'
     }, (err) => {
         if(err){
