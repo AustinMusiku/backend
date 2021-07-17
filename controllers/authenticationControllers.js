@@ -12,7 +12,7 @@ module.exports.signUp = async (req, res) => {
             res.json({ msg: 'email is already taken' });
         }
         else{
-            let hash = bcrypt.hashSync(password, 14);
+            let hash = await bcrypt.hash(password, 14);
             req.body.password = hash;
             let user = new User(req.body);
             user.save()
