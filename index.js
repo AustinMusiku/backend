@@ -64,5 +64,5 @@ app.get('/', (req, res) => {
 // fire up server
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`server running in ${process.env.NODE_ENV} on port ${port}`);
+    console.log(`server running in  on port ${port}`);
 })
