@@ -1,5 +1,5 @@
 const { graphqlHTTP } = require('express-graphql');
-const { GraphQLSchema, GraphQLString, GraphQLObjectType, GraphQLDate, GraphQLList } = require('graphql');
+const { GraphQLSchema, GraphQLString, GraphQLObjectType, GraphQLDate, GraphQLList, GraphQLInterfaceType, GraphQLInt, GraphQLFloat } = require('graphql');
 
 const User = require('../models/user');
 
@@ -21,13 +21,6 @@ const userType = new GraphQLObjectType({
                 return email;
             }
          },
-        password: { 
-            type: GraphQLString,
-            resolve: async (user) => {
-                password = await user.password;
-                return password;
-            }
-         },
         phone: { 
             type: GraphQLString,
             resolve: async (user) => {
@@ -35,12 +28,13 @@ const userType = new GraphQLObjectType({
                 return phone;
             }
          },
-        // createdAt: { 
-        //     type: GraphQLDate,
-        //     resolve: (user) => {
-        //         user.createdAt
-        //     }
-        //  }
+        createdAt: { 
+            type: GraphQLFloat,
+            resolve: async (user) => {
+                createdAt = new Date(await user.createdAt);
+                return createdAt;
+            }
+        }
     })
 })
 
@@ -51,11 +45,24 @@ const RootQuery = new GraphQLObjectType({
     fields: () => ({
         users: {
             type: new GraphQLList(userType),
-            description: 'list of users',
+            description: 'List of users',
             resolve: async () => {
                 let users = await User.find();
                 console.log(users);
                 return users;
+            }
+        },
+        user: {
+            type: userType,
+            description: 'One user',
+            args: {
+                id: {
+                    type: GraphQLString
+                }
+            },
+            resolve: async (parent, args) => {
+                let user = await User.findOne({ _id: args.id });
+                return user;
             }
         }
     })

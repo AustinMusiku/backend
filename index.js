@@ -4,6 +4,10 @@ const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 const cors = require('cors');
 const mongoose = require('mongoose');
+const { graphqlHTTP } = require('express-graphql');
+const graphQl = require('graphql');
+const { Schema } = require('./schema/schema');
+
 
 // initialize config file
 dotenv.config();
@@ -57,6 +61,10 @@ const userRoutes = require('./routes/userRoutes');
 
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+app.use('/graphql', graphqlHTTP({
+    schema: Schema,
+    graphiql: true
+}));
 // app.use('/', resourceRoutes);
 
 app.get('/', (req, res) => {
