@@ -54,7 +54,9 @@ module.exports.signIn = async (req, res) => {
 
 module.exports.signOut = (req, res) => {
     let { username, password, email, phone } = req.body;
-    console.log(username);
+    req.session.destroy(() => {
+        res.json({ msg: 'user session ended' })
+    });
 }
 
 module.exports.requireAuth = (req, res, next) => {
